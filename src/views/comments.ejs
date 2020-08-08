@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('./partials/head.ejs')%>
+        <title>Comentarios</title>
+</head>
+<style>
+    body {
+        background: linear-gradient(to right, #2C5364, #203A43, #0F2027);
+    }
+    
+    .col {
+        height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .card {
+        width: 80%;
+        min-height: 45vh;
+    }
+    
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    
+    .buttons {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    @media (max-width: 500px) {
+        .col {
+            height: 100vh;
+        }
+        .card {
+            width: 95%;
+            height: 90vh;
+        }
+        .card-body {
+            justify-content: space-between;
+        }
+        .titlescard h5 {
+            font-size: 40px;
+        }
+        .buttons a {
+            font-size: 25px;
+        }
+        .card-text {
+            font-size: 15px;
+        }
+    }
+    
+    @media (max-width: 400px) {
+        .col {
+            height: 100vh;
+        }
+        .card {
+            width: 98%;
+            height: 90vh;
+        }
+        .card-body {
+            justify-content: space-between;
+        }
+        .titlescard h5 {
+            font-size: 40px;
+        }
+        .buttons a {
+            font-size: 25px;
+        }
+        .card-text {
+            font-size: 15px;
+        }
+    }
+    
+    @media (max-width: 350px) {
+        .col {
+            height: 100vh;
+        }
+        .card {
+            height: 90vh;
+        }
+        .card-body {
+            justify-content: space-between;
+        }
+        .titlescard h5 {
+            font-size: 20px;
+        }
+        .buttons a {
+            font-size: 15px;
+        }
+        .card-text {
+            font-size: 12px;
+        }
+    }
+</style>
+
+<body>
+    <div class="container " style="height: 100%; width: 100%;">
+        <div class="row row-cols-1" id="tarjetas">
+            <div class="col">
+                <div class=" card ">
+                    <div class="card-body " style="align-items: center;">
+                        <h5 class=" card-title ">
+                            Comentarios
+                        </h5>
+                        <h6 class="card-subtitle mb-2 text-muted ">
+                            En esta seccion encontrarás los comentarios que se han enviado
+                        </h6>
+                        <h6 class="card-subtitle mb-2 text-muted ">
+                            Actualmente hay
+                            <%=comments.length%> comentario(s)
+                        </h6>
+                        <a href="/form " class="btn btn-primary ">Añadir comentario</a>
+                    </div>
+                </div>
+            </div>
+            <% comments.forEach(comment => { %>
+                <div class="col ">
+                    <div class=" card ">
+                        <div class="card-body ">
+                            <div class="titlescard ">
+                                <h5 class="card-title ">
+                                    <%=comment.name%>
+                                </h5>
+                                <h6 class="card-subtitle mb-2 text-muted ">
+                                    <%=comment.email%>
+                                </h6>
+                            </div>
+                            <p class="card-text ">
+                                <%=comment.message%>
+                            </p>
+                            <div class="buttons ">
+                                <form action="/comments/<%=comment._id%>/edit" method="GET">
+                                    <input type="hidden" name="_method">
+                                    <a href="javascript:void(0);" class="btn btn-primary" onclick="this.parentNode.submit();">Editar</a>
+                                </form>
+                                <form action="/comments/<%=comment._id%>" method="POST">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <a href="javascript:void(0);" class="btn btn-primary" onclick="if(confirm('¿Estás seguro?')){this.parentNode.submit();}">Eliminar</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+        </div>
+    </div>
+</body>
+<%- include('./partials/scripts.ejs') %>
+    <script>
+        var contenedor = document.getElementById('tarjetas')
+        const responsiveMobile = () => {
+            contenedor.classList.remove('row-cols-2')
+        }
+        const responsiveWeb = () => {
+            contenedor.classList.add('row-cols-2')
+        }
+    </script>
+
+</html>

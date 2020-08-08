@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('./partials/head.ejs') %>
+        <title>
+            Comentarios
+        </title>
+        <style>
+            .card {
+                width: 50vw;
+                border: 2px solid rgb(221, 220, 220);
+            }
+            
+            @media (max-width:800px) {
+                .card {
+                    width: 95vw;
+                    height: 90vh;
+                }
+            }
+        </style>
+</head>
+
+<body>
+    <div class="container-fluid d-flex justify-content-center align-items-center" style="
+    background: linear-gradient(to right, #2C5364, #203A43, #0F2027); height: 100vh;">
+        <div class="card rounded">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <%=titleForm%>
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">Rellena los campos</h6>
+                <form action="<%=linkForm%>" method="POST">
+                    <div class="form-group">
+                        <label for="name">Nombre:</label>
+                        <input type="text" class="form-control" name="name" placeholder="<%= nombre %> " required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="text" class="form-control" name="email" placeholder="<%= email %> " required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Escribe tu comentario</label>
+                        <textarea class="form-control" name="message" id="exampleFormControlTextarea1" placeholder="<%= message %> " rows="3"></textarea>
+                    </div>
+                    <input type="submit" class="btn btn-primary"></input>
+                    <a href="/comments" class="btn btn-primary">
+                        <%=controlsButton%>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<%- include('./partials/scripts.ejs') %>
+
+</html>
